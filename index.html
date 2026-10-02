@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Strict CSP: Zero remote connections, 100% client-side privacy -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' 'unsafe-inline' data:; connect-src 'none'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline';"
+    />
+    <title>Lifespan Purchasing Power Calculator</title>
+    <meta
+      name="description"
+      content="Reconstruct your remaining lifespan as purchasing power for meaningful experiences. Fully local, zero tracking, mathematical evaluation."
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header id="app-header"></header>
+
+      <main>
+        <!-- Live Countdown -->
+        <div id="app-countdown"></div>
+
+        <!-- SVG Probability Distribution Chart -->
+        <section id="app-chart" class="chart-card" aria-label="Lifespan Distribution Chart"></section>
+
+        <!-- Headline Output Cards -->
+        <section id="app-cards" aria-label="Unified Evaluation Metrics"></section>
+
+        <!-- Inputs / Script -->
+        <section id="app-inputs" aria-label="User Inputs and Model Parameters"></section>
+
+        <!-- 3 Scenarios Comparison -->
+        <section id="app-comparison" aria-label="Scenario Comparison"></section>
+
+        <!-- Equivalents Exchange Grid -->
+        <section id="app-equivalents" aria-label="Purchasing Power Equivalents"></section>
+      </main>
+
+      <!-- Philosophy & Disclaimer Footer -->
+      <footer id="app-disclaimer"></footer>
+
+      <!-- Modal Container -->
+      <div id="app-modal"></div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
