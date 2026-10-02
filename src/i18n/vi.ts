@@ -14,6 +14,11 @@ export const vi = {
   btn_export_json: 'Xuất JSON',
   btn_import_json: 'Nhập JSON',
 
+  // View sections switcher
+  tab_section_all: 'Tất cả Góc nhìn',
+  tab_section_purchasing_power: 'Sức Mua Cuộc Đời',
+  tab_section_human_infra: 'Động Cơ Kéo Dài Chủ Thể',
+
   // Section titles
   section_script: 'Kịch Bản Của Bạn',
   section_script_desc: 'Thiết lập độ tuổi hiện tại, nhịp sinh hoạt hàng ngày và tham số mô hình tuổi thọ.',
@@ -27,6 +32,11 @@ export const vi = {
   section_equivalents_desc: 'Chuyển hóa số năm còn lại thành những đơn vị gần gũi, hữu hình mà bạn có thể cảm nhận và chi tiêu.',
   section_countdown: 'Đồng Hồ Đếm Ngược Trực Tiếp',
   section_countdown_hint: 'Tích tắc từng giây trôi qua. Nhắc nhở ta trân quý từng khoảnh khắc hiện tại.',
+
+  // Human Infra Section Header
+  section_human_infra_title: 'Human Infra: Động Cơ Kéo Dài Khả Năng Chủ Thể',
+  section_human_infra_desc:
+    'Biến sự tồn tại tiếp diễn của bạn—để hành động, học hỏi, sáng tạo và bước tới tương lai—thành một bài toán kỹ thuật.',
 
   // Inputs
   label_current_age: 'Tuổi hiện tại',
@@ -52,6 +62,8 @@ export const vi = {
   label_books_per_year: 'Sách đọc mỗi năm',
   label_memory_start: 'Tuổi bắt đầu ghi nhớ (m)',
   label_baseline_age: 'Tuổi mốc cảm nhận (b)',
+  label_daily_focus: 'Giờ tập trung sáng tạo đỉnh cao',
+  label_ai_factor: 'Hệ số đòn bẩy AI & công cụ',
 
   warning_overallocated: 'Cảnh báo: Tổng thời gian ngủ, làm việc, đi lại và màn hình vượt quá 24 giờ/ngày! Thời gian rảnh bị giới hạn về 0.',
 
@@ -86,6 +98,70 @@ export const vi = {
   lev_bound_label: 'Chân Trời Vũ Trụ',
   lev_bound_val: '~10¹⁴ năm (~100 nghìn tỷ năm)',
   lev_cosmic_horizon_desc: 'Thời gian tồn tại còn lại của các sao lùn đỏ trừ đi tuổi hiện tại của vũ trụ.',
+
+  // Human Infra: Healthspan & The Golden Window
+  card_healthspan_title: 'Tuổi Thọ Khỏe Mạnh & Cửa Sổ Vàng',
+  card_healthspan_desc:
+    'Tuổi thọ khỏe mạnh (HALE) là khoảng thời gian thể lực đỉnh cao, hoàn toàn tự chủ và không bị cản trở bởi bệnh mạn tính.',
+  label_golden_window: 'Cửa Sổ Vàng (Sung Sức)',
+  label_fragility_era: 'Thời Kỳ Lắng Đọng (Tuổi Già)',
+  golden_window_format: 'Còn {years} năm thể lực sung sức đỉnh cao',
+  fragility_era_format: 'Dự kiến ~{years} năm tuổi già tĩnh lặng',
+  hale_age_format: 'Duy trì thể chất nguyên vẹn tới tuổi {age}',
+
+  // Human Infra: Deep Focus Engine
+  card_focus_title: 'Động Cơ Tập Trung Sâu Đỉnh Cao',
+  card_focus_desc:
+    'Tổng số giờ chú ý sáng tạo không gián đoạn sau khi trừ hao mòn sinh hoạt và việc vụn vặt ({hours} h/ngày).',
+  label_mastery_quotas: 'Hạn Ngạch 10.000 Giờ Chuyên Gia',
+  mastery_quotas_desc:
+    'Đủ quỹ thời gian tập trung cao độ để thành thạo từ con số 0 ở {count} lĩnh vực hoàn toàn khác biệt.',
+
+  // Human Infra: Accelerated Returns Flywheel
+  card_flywheel_title: 'Bánh Đà Tăng Tốc Lợi Nhuận',
+  card_flywheel_desc:
+    'Định luật cốt lõi của Human Infra: Thời gian còn lại càng dài, cái giá của thất bại trong các đại dự án càng thấp.',
+  flywheel_3yr_eras: 'Chương Đời 3 Năm',
+  flywheel_3yr_desc:
+    'Còn {count} chương đời 3 năm riêng biệt để bạn tái sinh sự nghiệp, kỹ năng hoặc phong cách sống.',
+  flywheel_failure_runway: 'Đường Băng Cho Phép Thất Bại',
+  flywheel_failure_desc:
+    'Bạn có thể thất bại trắng tay ở {count} dự án thử nghiệm 2 năm trước khi cửa sổ vàng khép lại mà không sợ mất tất cả.',
+
+  // Human Infra: The Calendar Bridge
+  card_calendar_bridge_title: 'Cây Cầu Thời Gian & Lộ Trình Công Nghệ',
+  card_calendar_bridge_desc:
+    'Kết nối dòng đời cá nhân của bạn với bản đồ vĩ mô của công nghệ sinh học và kéo dài tuổi thọ.',
+  bridge_target_year_format: 'Dự kiến bước sang năm dương lịch {year}',
+  bridge_golden_year_format: 'Giai đoạn thể lực sung mãn kéo dài tới năm {year}',
+  milestone_2035_title: '2035: Tiêu Diệt Tế Bào Già & mRNA Phòng Ngừa',
+  milestone_2035_desc: 'Làm sạch tế bào lão hóa định kỳ và vắc-xin ung thư cá nhân hóa.',
+  milestone_2040_title: '2040: Vận Tốc Thoát Lão Hóa (LEV)',
+  milestone_2040_desc: 'Y học tăng hơn 1 năm tuổi thọ cho mỗi 1 năm dương lịch trôi qua.',
+  milestone_2045_title: '2045: Thay Thế Toàn Bộ Nội Tạng Sinh Học',
+  milestone_2045_desc: 'In 3D nội tạng sinh học hoàn chỉnh và ghép tạng biến đổi gen an toàn.',
+  milestone_2055_title: '2055+: Tái Lập Trình Biểu Sinh & Đình Chỉ Sinh Học',
+  milestone_2055_desc: 'Đảo ngược tuổi biểu sinh trực tiếp và bảo tồn liên kết thần kinh não bộ.',
+  milestone_reached: 'Trong Tầm Với',
+  milestone_beyond: 'Cần Đạt Mốc LEV',
+
+  // Human Infra: AI Leverage
+  card_ai_leverage_title: 'Đòn Bẩy AI & Công Cụ Trí Tuệ',
+  card_ai_leverage_desc:
+    'Công cụ và AI khuếch đại tổng sản lượng trí tuệ và giải quyết vấn đề cả đời của bạn như thế nào.',
+  ai_amplified_years: 'Tương đương {years} năm thức của sản lượng trí tuệ thời tiền AI',
+  ai_career_equivalents: 'Bằng sản lượng của ~{careers} cả đời sự nghiệp 40 năm của người xưa',
+
+  // Human Infra: Boundary Diagnostic
+  card_boundary_diagnostic_title: 'Chi Tiêu Nội Tại vs. Duy Trì Nền Tảng',
+  card_boundary_diagnostic_desc:
+    'Bạn có đang đầu tư đủ để duy trì bản thể tiếp tục cuộc chơi, hay chỉ tối ưu hóa cục bộ bên trong đồng hồ đếm ngược?',
+  label_boundary_condition: 'Đầu Tư Bản Thể (Giấc ngủ & Phục hồi cơ thể)',
+  label_boundary_within: 'Chi Tiêu Nội Tại (Làm việc, Đi lại, Màn hình, Giải trí)',
+  boundary_insight_good:
+    'Nền tảng vững chắc: Bạn dành đủ tài nguyên để nuôi dưỡng và bảo vệ bản thể sinh học và nhận thức.',
+  boundary_insight_low:
+    'Nền tảng hao mòn: Áp lực công việc và màn hình đang bào mòn chính bản thể mà bạn cần để bước tới tương lai.',
 
   // Chart labels
   chart_you_now: 'Bạn (hiện tại: {age})',

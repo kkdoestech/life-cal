@@ -14,6 +14,11 @@ export const en = {
   btn_export_json: 'Export JSON',
   btn_import_json: 'Import JSON',
 
+  // View sections switcher
+  tab_section_all: 'All Perspectives',
+  tab_section_purchasing_power: 'Purchasing Power',
+  tab_section_human_infra: 'Human Infra Engine',
+
   // Section titles
   section_script: 'Your Script',
   section_script_desc: 'Configure your current age, daily rhythms, and lifespan model parameters.',
@@ -27,6 +32,11 @@ export const en = {
   section_equivalents_desc: 'Converting remaining years into visceral units you can feel and spend.',
   section_countdown: 'Live Countdown',
   section_countdown_hint: 'Ticking per second. Focus on the value of every single moment.',
+
+  // Human Infra Section Header
+  section_human_infra_title: 'Human Infra: Subject Continuity Engine',
+  section_human_infra_desc:
+    'Treating the continued availability of you—to act, learn, create, and reach the future—as an engineering substrate.',
 
   // Inputs
   label_current_age: 'Current age',
@@ -52,6 +62,8 @@ export const en = {
   label_books_per_year: 'Books read per year',
   label_memory_start: 'Memory start age (origin m)',
   label_baseline_age: 'Subjective baseline age (b)',
+  label_daily_focus: 'Daily peak creative focus',
+  label_ai_factor: 'AI / Tool Leverage Factor',
 
   warning_overallocated: 'Warning: Sleep, work, commute, and screen time exceed 24 hours/day! Free time is clamped to 0.',
 
@@ -86,6 +98,70 @@ export const en = {
   lev_bound_label: 'Cosmological Horizon',
   lev_bound_val: '~10¹⁴ years (~100 trillion years)',
   lev_cosmic_horizon_desc: 'Remaining lifetime of red dwarf stars minus current age of the universe.',
+
+  // Human Infra: Healthspan & The Golden Window
+  card_healthspan_title: 'Healthspan & The Golden Window',
+  card_healthspan_desc:
+    'Healthy Life Expectancy (HALE) marks your window of prime physical autonomy and vigor before age-related limitations.',
+  label_golden_window: 'Golden Window (Vigor)',
+  label_fragility_era: 'Fragility Horizon',
+  golden_window_format: '{years} years of prime vitality left',
+  fragility_era_format: '~{years} lower-intensity elder years',
+  hale_age_format: 'Reaching age {age} in full vitality',
+
+  // Human Infra: Deep Focus Engine
+  card_focus_title: 'Peak Deep Focus Engine',
+  card_focus_desc:
+    'High-clarity, creative focus hours left after deducting daily fatigue and obligations ({hours} h/day).',
+  label_mastery_quotas: '10,000-Hour Masteries',
+  mastery_quotas_desc:
+    'Enough deep cognitive bandwidth to master {count} completely distinct disciplines from scratch.',
+
+  // Human Infra: Accelerated Returns Flywheel
+  card_flywheel_title: 'Accelerated Returns Flywheel',
+  card_flywheel_desc:
+    'The core Human Infra law: Remaining time lowers the cost of failing ambitious, transformative endeavors.',
+  flywheel_3yr_eras: '3-Year Life Chapters',
+  flywheel_3yr_desc:
+    '{count} distinct 3-year chapters left to reinvent your craft, career, business, or lifestyle.',
+  flywheel_failure_runway: 'Failure Tolerance Runway',
+  flywheel_failure_desc:
+    'You can completely fail {count} ambitious 2-year experimental ventures before your golden window closes.',
+
+  // Human Infra: The Calendar Bridge
+  card_calendar_bridge_title: 'The Calendar Bridge & Biotech Roadmap',
+  card_calendar_bridge_desc:
+    'Connecting your personal timeline to the macro roadmap of life-extension and biotechnology.',
+  bridge_target_year_format: 'Projected to see calendar year {year}',
+  bridge_golden_year_format: 'Prime golden vigor extends to year {year}',
+  milestone_2035_title: '2035: Targeted Senolytics & Preventative mRNA',
+  milestone_2035_desc: 'Routine senescent cell clearance and personalized cancer vaccines.',
+  milestone_2040_title: '2040: Longevity Escape Velocity (LEV)',
+  milestone_2040_desc: 'Medical science adds >1.0 year of healthy life for every 1.0 calendar year passed.',
+  milestone_2045_title: '2045: Engineered Organ Replacement',
+  milestone_2045_desc: 'Whole-organ 3D bioprinting and immunocompatible xenotransplantation.',
+  milestone_2055_title: '2055+: Epigenetic Reprogramming & Stasis',
+  milestone_2055_desc: 'In vivo epigenetic age reversal and neural-CNS preservation.',
+  milestone_reached: 'Within Reach',
+  milestone_beyond: 'Requires LEV',
+
+  // Human Infra: AI Leverage
+  card_ai_leverage_title: 'Cognitive AI & Tool Leverage',
+  card_ai_leverage_desc:
+    'How tools and AI amplification expand your effective lifetime creative and problem-solving output.',
+  ai_amplified_years: '{years} amplified waking years of equivalent output',
+  ai_career_equivalents: 'Equals ~{careers} historical 40-year working careers',
+
+  // Human Infra: Boundary Diagnostic
+  card_boundary_diagnostic_title: 'Boundary-Condition vs. Boundary-Within',
+  card_boundary_diagnostic_desc:
+    'Are you investing enough to keep the subject available, or only optimizing inside the countdown?',
+  label_boundary_condition: 'Boundary-Condition (Sleep & Restoration)',
+  label_boundary_within: 'Boundary-Within (Work, Commute, Screen, Leisure)',
+  boundary_insight_good:
+    'Strong foundation: You allocate substantial bandwidth to preserving your biological and cognitive substrate.',
+  boundary_insight_low:
+    'Substrate risk: Work and screen demands are eroding the very subject needed to reach the future.',
 
   // Chart labels
   chart_you_now: 'You (now: {age})',

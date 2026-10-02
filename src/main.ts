@@ -13,6 +13,14 @@ import {
   RemainingTimeMetrics,
   SubjectiveTimeMetrics,
 } from './model/time';
+import {
+  computeHealthspanMetrics,
+  computeDeepFocusMetrics,
+  computeFlywheelMetrics,
+  computeCalendarBridge,
+  computeAiLeverageMetrics,
+  computeBoundaryBalance,
+} from './model/humanInfra';
 import { LifespanChart } from './ui/chart';
 import { renderHeader } from './ui/components/header';
 import { renderInputs } from './ui/components/inputs';
@@ -22,6 +30,7 @@ import { EquivalentsExchange } from './ui/components/equivalents';
 import { LiveCountdown } from './ui/components/countdown';
 import { ShareModal } from './ui/components/shareModal';
 import { renderDisclaimer } from './ui/components/disclaimer';
+import { renderHumanInfraDashboard } from './ui/components/humanInfraDashboard';
 
 class LifespanApp {
   private state: State;
@@ -32,6 +41,7 @@ class LifespanApp {
   private elCountdown: HTMLElement;
   private elChart: HTMLElement;
   private elCards: HTMLElement;
+  private elHumanInfra: HTMLElement;
   private elComparison: HTMLElement;
   private elEquivalents: HTMLElement;
   private elInputs: HTMLElement;
@@ -54,6 +64,7 @@ class LifespanApp {
     this.elCountdown = document.getElementById('app-countdown')!;
     this.elChart = document.getElementById('app-chart')!;
     this.elCards = document.getElementById('app-cards')!;
+    this.elHumanInfra = document.getElementById('app-human-infra')!;
     this.elComparison = document.getElementById('app-comparison')!;
     this.elEquivalents = document.getElementById('app-equivalents')!;
     this.elInputs = document.getElementById('app-inputs')!;
@@ -65,7 +76,6 @@ class LifespanApp {
       onUpdateExpectedEnd: (newTargetAge: number) => {
         // Direct adjustment from dragging the curve handle
         if (this.state.modelType === 'normal') {
-          // Adjust mu
           this.updateState({
             scenarioPreset: 'custom',
             normalParams: {
@@ -126,7 +136,18 @@ class LifespanApp {
     timeMetrics: RemainingTimeMetrics;
     subjective: SubjectiveTimeMetrics;
   } {
-    const { age, modelType, normalParams, gompertzParams, sleepHours, workHours, commuteHours, screenHours, memoryStartAge, baselineAge } = this.state;
+    const {
+      age,
+      modelType,
+      normalParams,
+      gompertzParams,
+      sleepHours,
+      workHours,
+      commuteHours,
+      screenHours,
+      memoryStartAge,
+      baselineAge,
+    } = this.state;
 
     let lifespan: ConditionalLifespanResult;
 
@@ -178,11 +199,44 @@ class LifespanApp {
   private renderAll(): void {
     const { lifespan, timeMetrics, subjective } = this.evaluateModels();
 
+    // Compute Human Infra metrics
+    const healthspan = computeHealthspanMetrics(
+      this.state.age,
+      lifespan.expectedEndAge,
+      this.state.healthyRatio
+    );
+    const focus = computeDeepFocusMetrics(
+      lifespan.remainingCalendarYears,
+      timeMetrics.freeHoursPerDay,
+      this.state.peakFocusHours
+    );
+    const flywheel = computeFlywheelMetrics(
+      lifespan.remainingCalendarYears,
+      healthspan.goldenWindowYears
+    );
+    const bridge = computeCalendarBridge(
+      lifespan.remainingCalendarYears,
+      healthspan.goldenWindowYears
+    );
+    const ai = computeAiLeverageMetrics(
+      timeMetrics.awakeYears,
+      timeMetrics.totalFreeHours,
+      this.state.aiLeverageFactor
+    );
+    const boundary = computeBoundaryBalance(
+      this.state.sleepHours,
+      timeMetrics.freeHoursPerDay,
+      this.state.workHours,
+      this.state.commuteHours,
+      this.state.screenHours
+    );
+
     // 1. Header
     renderHeader(this.elHeader, this.state, {
       onLanguageChange: (lang) => this.updateState({ language: lang }),
       onModelChange: (model) => this.updateState({ modelType: model }),
       onUiModeChange: (uiMode) => this.updateState({ uiMode }),
+      onActiveSectionChange: (activeSection) => this.updateState({ activeSection }),
       onOpenShareModal: () => {
         this.isShareModalOpen = true;
         this.shareModalComponent.render(this.state, lifespan, timeMetrics, subjective);
@@ -229,24 +283,55 @@ class LifespanApp {
     // 4. Headline Cards
     renderCards(this.elCards, this.state, lifespan, timeMetrics, subjective);
 
-    // 5. 3-Scenario Comparison
+    // 5. Human Infra Dashboard
+    renderHumanInfraDashboard(
+      this.elHumanInfra,
+      this.state,
+      healthspan,
+      focus,
+      flywheel,
+      bridge,
+      ai,
+      boundary,
+      {
+        onUpdateState: (updates) => this.updateState(updates),
+      }
+    );
+
+    // 6. 3-Scenario Comparison
     renderComparison(this.elComparison, this.state);
 
-    // 6. Equivalents Grid
+    // 7. Equivalents Grid
     this.equivalentsComponent.render(this.state, lifespan.remainingCalendarYears);
 
-    // 7. Inputs Panel
+    // 8. Inputs Panel
     renderInputs(this.elInputs, this.state, {
       onStateUpdate: (updates) => this.updateState(updates),
     });
 
-    // 8. Disclaimer
+    // 9. Disclaimer
     renderDisclaimer(this.elDisclaimer, this.state);
 
-    // 9. Re-render modal if open
+    // 10. Re-render modal if open
     if (this.isShareModalOpen) {
       this.shareModalComponent.render(this.state, lifespan, timeMetrics, subjective);
     }
+
+    // Apply Section Perspective Visibility
+    this.applySectionVisibility();
+  }
+
+  private applySectionVisibility(): void {
+    const { activeSection } = this.state;
+
+    const showPP = activeSection === 'all' || activeSection === 'purchasing_power';
+    const showHI = activeSection === 'all' || activeSection === 'human_infra';
+
+    this.elCards.style.display = showPP ? 'block' : 'none';
+    this.elComparison.style.display = showPP ? 'block' : 'none';
+    this.elEquivalents.style.display = showPP ? 'block' : 'none';
+
+    this.elHumanInfra.style.display = showHI ? 'block' : 'none';
   }
 }
 

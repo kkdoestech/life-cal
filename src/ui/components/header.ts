@@ -5,6 +5,7 @@ export interface HeaderCallbacks {
   onLanguageChange: (lang: State['language']) => void;
   onModelChange: (model: State['modelType']) => void;
   onUiModeChange: (mode: State['uiMode']) => void;
+  onActiveSectionChange: (sec: State['activeSection']) => void;
   onOpenShareModal: () => void;
   onResetDefaults: () => void;
   onExportJson: () => void;
@@ -16,7 +17,7 @@ export function renderHeader(
   state: State,
   callbacks: HeaderCallbacks
 ): void {
-  const { language, modelType, uiMode } = state;
+  const { language, modelType, uiMode, activeSection } = state;
 
   container.innerHTML = `
     <div class="header-top">
@@ -59,8 +60,9 @@ export function renderHeader(
       </div>
     </div>
 
-    <!-- Lifespan Model Selector Pills -->
+    <!-- Lifespan Model Selector Pills & Section Perspective Tabs -->
     <div class="model-bar">
+      <!-- Models -->
       <button id="model-normal" class="model-pill ${modelType === 'normal' ? 'active' : ''}">
         ${t(language, 'model_normal')}
       </button>
@@ -70,6 +72,21 @@ export function renderHeader(
       <button id="model-lev" class="model-pill ${modelType === 'lev' ? 'active' : ''}">
         🚀 ${t(language, 'model_lev')}
       </button>
+
+      <span style="color: var(--border-color); margin: 0 0.25rem;">|</span>
+
+      <!-- Perspectives Filter Tabs -->
+      <div class="btn-group" role="group" aria-label="Perspective view selection">
+        <button id="tab-all" class="btn ${activeSection === 'all' ? 'active' : ''}" style="font-size: 0.8rem; padding: 0.35rem 0.65rem;">
+          🌐 ${t(language, 'tab_section_all')}
+        </button>
+        <button id="tab-pp" class="btn ${activeSection === 'purchasing_power' ? 'active' : ''}" style="font-size: 0.8rem; padding: 0.35rem 0.65rem;">
+          ⏳ ${t(language, 'tab_section_purchasing_power')}
+        </button>
+        <button id="tab-hi" class="btn ${activeSection === 'human_infra' ? 'active' : ''}" style="font-size: 0.8rem; padding: 0.35rem 0.65rem;">
+          🧬 ${t(language, 'tab_section_human_infra')}
+        </button>
+      </div>
     </div>
   `;
 
@@ -78,6 +95,10 @@ export function renderHeader(
   container.querySelector('#lang-vi')?.addEventListener('click', () => callbacks.onLanguageChange('vi'));
   container.querySelector('#mode-simple')?.addEventListener('click', () => callbacks.onUiModeChange('simple'));
   container.querySelector('#mode-detailed')?.addEventListener('click', () => callbacks.onUiModeChange('detailed'));
+
+  container.querySelector('#tab-all')?.addEventListener('click', () => callbacks.onActiveSectionChange('all'));
+  container.querySelector('#tab-pp')?.addEventListener('click', () => callbacks.onActiveSectionChange('purchasing_power'));
+  container.querySelector('#tab-hi')?.addEventListener('click', () => callbacks.onActiveSectionChange('human_infra'));
 
   container.querySelector('#model-normal')?.addEventListener('click', () => callbacks.onModelChange('normal'));
   container.querySelector('#model-gompertz')?.addEventListener('click', () => callbacks.onModelChange('gompertz'));

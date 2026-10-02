@@ -1,4 +1,4 @@
-import { State, DEFAULT_STATE, SCENARIO_PRESETS } from './types';
+import { State, DEFAULT_STATE, SCENARIO_PRESETS, ActiveSection } from './types';
 
 function clamp(value: unknown, min: number, max: number, defaultVal: number): number {
   if (typeof value !== 'number' || Number.isNaN(value)) return defaultVal;
@@ -55,6 +55,16 @@ export function validateState(input?: Partial<State> | null): State {
   const uiMode = input.uiMode === 'simple' ? 'simple' : 'detailed';
   const hideCountdown = Boolean(input.hideCountdown);
 
+  // Human Infra extension fields
+  const peakFocusHours = clamp(input.peakFocusHours, 0, 12, DEFAULT_STATE.peakFocusHours);
+  const aiLeverageFactor = clamp(input.aiLeverageFactor, 1.0, 5.0, DEFAULT_STATE.aiLeverageFactor);
+  const healthyRatio = clamp(input.healthyRatio, 0.70, 0.95, DEFAULT_STATE.healthyRatio);
+
+  const activeSection: ActiveSection =
+    input.activeSection === 'purchasing_power' || input.activeSection === 'human_infra'
+      ? input.activeSection
+      : 'all';
+
   return {
     age,
     modelType,
@@ -73,5 +83,9 @@ export function validateState(input?: Partial<State> | null): State {
     hideCountdown,
     language,
     uiMode,
+    peakFocusHours,
+    aiLeverageFactor,
+    healthyRatio,
+    activeSection,
   };
 }

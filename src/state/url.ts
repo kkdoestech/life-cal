@@ -8,31 +8,37 @@ import { validateState } from './validate';
 export function encodeStateToHash(state: State): string {
   const params = new URLSearchParams();
 
-  params.set('a', state.age.toString());
-  params.set('mt', state.modelType);
-  params.set('sp', state.scenarioPreset);
-  params.set('mu', state.normalParams.mu.toString());
-  params.set('sig', state.normalParams.sigma.toString());
-  params.set('gM', state.gompertzParams.M.toString());
-  params.set('gB', state.gompertzParams.beta.toString());
+  params.set('a', (state.age ?? DEFAULT_STATE.age).toString());
+  params.set('mt', state.modelType ?? DEFAULT_STATE.modelType);
+  params.set('sp', state.scenarioPreset ?? DEFAULT_STATE.scenarioPreset);
+  params.set('mu', (state.normalParams?.mu ?? DEFAULT_STATE.normalParams.mu).toString());
+  params.set('sig', (state.normalParams?.sigma ?? DEFAULT_STATE.normalParams.sigma).toString());
+  params.set('gM', (state.gompertzParams?.M ?? DEFAULT_STATE.gompertzParams.M).toString());
+  params.set('gB', (state.gompertzParams?.beta ?? DEFAULT_STATE.gompertzParams.beta).toString());
 
-  params.set('s', state.sleepHours.toString());
-  params.set('w', state.workHours.toString());
-  params.set('c', state.commuteHours.toString());
-  params.set('sc', state.screenHours.toString());
+  params.set('s', (state.sleepHours ?? DEFAULT_STATE.sleepHours).toString());
+  params.set('w', (state.workHours ?? DEFAULT_STATE.workHours).toString());
+  params.set('c', (state.commuteHours ?? DEFAULT_STATE.commuteHours).toString());
+  params.set('sc', (state.screenHours ?? DEFAULT_STATE.screenHours).toString());
 
-  params.set('meals', state.mealsPerDay.toString());
-  params.set('books', state.booksPerYear.toString());
-  params.set('mstart', state.memoryStartAge.toString());
-  params.set('base', state.baselineAge.toString());
+  params.set('meals', (state.mealsPerDay ?? DEFAULT_STATE.mealsPerDay).toString());
+  params.set('books', (state.booksPerYear ?? DEFAULT_STATE.booksPerYear).toString());
+  params.set('mstart', (state.memoryStartAge ?? DEFAULT_STATE.memoryStartAge).toString());
+  params.set('base', (state.baselineAge ?? DEFAULT_STATE.baselineAge).toString());
 
   params.set('cd', state.hideCountdown ? '0' : '1');
-  params.set('lang', state.language);
-  params.set('ui', state.uiMode);
+  params.set('lang', state.language ?? DEFAULT_STATE.language);
+  params.set('ui', state.uiMode ?? DEFAULT_STATE.uiMode);
 
-  params.set('ow', state.overlayScenarios.worst ? '1' : '0');
-  params.set('os', state.overlayScenarios.status_quo ? '1' : '0');
-  params.set('ob', state.overlayScenarios.best ? '1' : '0');
+  params.set('ow', state.overlayScenarios?.worst ? '1' : '0');
+  params.set('os', state.overlayScenarios?.status_quo ? '1' : '0');
+  params.set('ob', state.overlayScenarios?.best ? '1' : '0');
+
+  // Human Infra parameters with safe fallbacks
+  params.set('pf', (state.peakFocusHours ?? DEFAULT_STATE.peakFocusHours).toString());
+  params.set('ai', (state.aiLeverageFactor ?? DEFAULT_STATE.aiLeverageFactor).toString());
+  params.set('hr', (state.healthyRatio ?? DEFAULT_STATE.healthyRatio).toString());
+  params.set('sec', state.activeSection ?? DEFAULT_STATE.activeSection);
 
   return '#' + params.toString();
 }
@@ -95,6 +101,12 @@ export function decodeStateFromUrl(urlFragmentOrSearch: string): State {
       best: params.get('ob') === '1',
     };
   }
+
+  // Human Infra parameters
+  if (params.has('pf')) partial.peakFocusHours = Number(params.get('pf'));
+  if (params.has('ai')) partial.aiLeverageFactor = Number(params.get('ai'));
+  if (params.has('hr')) partial.healthyRatio = Number(params.get('hr'));
+  if (params.has('sec')) partial.activeSection = params.get('sec') as State['activeSection'];
 
   return validateState(partial);
 }

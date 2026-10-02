@@ -24,6 +24,10 @@ describe('State & URL Persistence Tests', () => {
       hideCountdown: true,
       language: 'vi',
       uiMode: 'detailed',
+      peakFocusHours: 4,
+      aiLeverageFactor: 1.5,
+      healthyRatio: 0.88,
+      activeSection: 'all',
     };
 
     const hash = encodeStateToHash(customState);

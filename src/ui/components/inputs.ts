@@ -27,6 +27,8 @@ export function renderInputs(
     memoryStartAge,
     baselineAge,
     uiMode,
+    peakFocusHours,
+    aiLeverageFactor,
   } = state;
 
   const totalAllocated = sleepHours + workHours + commuteHours + screenHours;
@@ -261,6 +263,30 @@ export function renderInputs(
               <input type="number" id="num-base" class="input-number" min="1" max="100" step="1" value="${baselineAge}" />
             </div>
           </div>
+
+          <!-- Peak Creative Focus -->
+          <div class="input-row">
+            <div class="input-label-row">
+              <label for="input-focus">${t(language, 'label_daily_focus')}</label>
+              <span>${peakFocusHours} h</span>
+            </div>
+            <div class="input-controls-row">
+              <input type="range" id="input-focus" class="input-range" min="1" max="8" step="0.5" value="${peakFocusHours}" />
+              <input type="number" id="num-focus" class="input-number" min="1" max="8" step="0.5" value="${peakFocusHours}" />
+            </div>
+          </div>
+
+          <!-- AI & Tool Leverage Factor -->
+          <div class="input-row">
+            <div class="input-label-row">
+              <label for="input-ai">${t(language, 'label_ai_factor')}</label>
+              <span>${aiLeverageFactor.toFixed(1)}×</span>
+            </div>
+            <div class="input-controls-row">
+              <input type="range" id="input-ai" class="input-range" min="1.0" max="4.0" step="0.25" value="${aiLeverageFactor}" />
+              <input type="number" id="num-ai" class="input-number" min="1.0" max="4.0" step="0.25" value="${aiLeverageFactor}" />
+            </div>
+          </div>
         `
             : ''
         }
@@ -302,6 +328,8 @@ export function renderInputs(
   bindPair('input-books', 'num-books', (booksPerYear) => callbacks.onStateUpdate({ booksPerYear }));
   bindPair('input-mstart', 'num-mstart', (memoryStartAge) => callbacks.onStateUpdate({ memoryStartAge }));
   bindPair('input-base', 'num-base', (baselineAge) => callbacks.onStateUpdate({ baselineAge }));
+  bindPair('input-focus', 'num-focus', (peakFocusHours) => callbacks.onStateUpdate({ peakFocusHours }));
+  bindPair('input-ai', 'num-ai', (aiLeverageFactor) => callbacks.onStateUpdate({ aiLeverageFactor }));
 
   if (modelType === 'normal') {
     const presetSelect = container.querySelector('#select-preset') as HTMLSelectElement;

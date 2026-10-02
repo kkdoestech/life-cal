@@ -6,6 +6,7 @@ export type ModelType = 'normal' | 'gompertz' | 'lev';
 export type ScenarioPreset = 'worst' | 'status_quo' | 'best' | 'custom';
 export type Language = 'en' | 'vi';
 export type UiMode = 'simple' | 'detailed';
+export type ActiveSection = 'all' | 'purchasing_power' | 'human_infra';
 
 export interface NormalParams {
   mu: number;
@@ -41,6 +42,12 @@ export interface State {
   hideCountdown: boolean;
   language: Language;
   uiMode: UiMode;
+
+  // Human Infra extension fields
+  peakFocusHours: number;
+  aiLeverageFactor: number;
+  healthyRatio: number;
+  activeSection: ActiveSection;
 }
 
 export const SCENARIO_PRESETS: Record<'worst' | 'status_quo' | 'best', NormalParams> = {
@@ -71,4 +78,10 @@ export const DEFAULT_STATE: State = {
   hideCountdown: false,
   language: 'en',
   uiMode: 'detailed',
+
+  // Human Infra defaults
+  peakFocusHours: 4,
+  aiLeverageFactor: 1.5,
+  healthyRatio: 0.88,
+  activeSection: 'all',
 };
